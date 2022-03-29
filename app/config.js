@@ -1,8 +1,8 @@
 let apiUrl
 const apiUrls = {
   // https://tic-tac-toe-api-production.herokuapp.com/
-  production: '<replace-with-heroku-url>',
-  development: 'http://localhost:4741'
+  production: 'https://tic-tac-toe-api-production.herokuapp.com',
+  development: 'https://tic-tac-toe-api-development.herokuapp.com'
   // https://tic-tac-toe-api-development.herokuapp.com/
 }
 
