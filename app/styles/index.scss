@@ -1,0 +1,23 @@
+@import '~bootstrap/scss/bootstrap';
+
+
+.box{
+    border: 2px solid black;
+    width: 100px;
+    height: 100px;
+}
+.grid{
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    width: 330px;
+}
+
+.circle{
+    background-image: url("./app/styles/o.png") ; 
+    background-size: 100%;
+}
+.ex{
+    background-image: url("./app/styles/x.png") ; 
+    background-size: 100%;
+}
