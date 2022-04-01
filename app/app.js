@@ -159,6 +159,18 @@ function winner(){
   } else if(moves[1]== "ex" && moves[4]== "ex" && moves[7]== "ex"){//second column
       document.querySelector('#status').innerHTML = "X is the winner!! Clear the board to play again!" ;
   }
+
+  //if there is a tie
+  let counter = 0
+
+  for(let i = 0; i <9 ; i++){
+      if(moves[i] == "ex" || moves[i] == "circle"){
+          counter++
+      }
+  }
+  if(counter == 9){
+    document.querySelector('#status').innerHTML = "It's a Tie!! Clear the board to play again!" ;
+  }
 }
 
 winner()
