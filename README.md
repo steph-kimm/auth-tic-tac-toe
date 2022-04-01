@@ -5,6 +5,7 @@
 
 * Build a tic tac toe game with user authentication using HTML, CSS, JavaScript, and jQuery 
 
+You can see the deployed game [here](https://steph-kimm.github.io/auth-tic-tac-toe/).
 
 # Authentication features 
 

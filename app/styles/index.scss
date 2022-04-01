@@ -21,3 +21,22 @@
     background-image: url("./app/styles/x.png") ; 
     background-size: 100%;
 }
+
+#sign-up-form{
+    width: 30%;
+    height: 200px;
+    min-width: 200px;
+    border: 2px solid black;
+    margin-bottom: 30px;
+}
+#sign-in-form{
+    width: 30%;
+    min-width: 200px;
+    height: 150px;
+    border: 2px solid black;
+    margin-bottom: 30px;
+}
+
+input {
+    border: 10px
+}
