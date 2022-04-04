@@ -5,6 +5,7 @@
 // require('./example')
 
 const authEvents = require('./auth/events.js')
+const authApi = require('./auth/api.js')
 
 
 $(() => {
@@ -33,17 +34,27 @@ $(() => {
 
 
 //.addEventListener("click", move);
-document.querySelectorAll(".box").forEach(element =>{
-  element.addEventListener('click' , function(event){
-      console.log(event)
-      let target = event.target;
-      console.log(played(target))
-      if(!played(target)){
-          move(target)
-      }
-      
-    })
-}) 
+
+function clickMove(event){
+    console.log(event)
+    let target = event.target;
+
+    //console.log("id:" + target.id)
+
+    console.log(played(target))
+    if(!played(target)){
+        move(target)
+    }
+    
+}
+$('#sign-in-form').on('submit', ()=>{
+    document.querySelectorAll(".box").forEach(element =>{
+        element.addEventListener('click' , clickMove)
+      }) 
+})
+
+
+
 
 // to see if a box was already played 
 function played(box){
@@ -57,30 +68,62 @@ function played(box){
   return false
 }
 
+//clear the board
 document.querySelector('#clear').addEventListener('click', function(event){
   document.querySelectorAll(".box").forEach(element =>{
           element.classList.remove('circle')
           element.classList.remove('ex')
   }) 
   document.querySelector('h3').innerHTML = "Click on a box to start the game! " ;
+  document.querySelectorAll(".box").forEach(element =>{
+    element.addEventListener('click' , clickMove)// function(event){
+  }) 
 })
+
+
 
 
 let toggle = true;
 function move(box){
-
+  let boxNum = box.id
+  console.log("id:" + box.id);
   if(toggle){
       //box.innerHTML =  "O"
+      //make game Obj
+      let apiGameObject = {
+        "game": {
+            "cell": {
+                "index": boxNum,
+                "value": "o"
+              },
+              "over": true
+          
+            }
+        }
       box.classList.add('circle')
       toggle = false
       changeTurn()
       winner()
+      authApi.updateGame(apiGameObject).then(()=>console.log("Patched successfully"))
+
   }else{
       // box.innerHTML =  "X"
+      let apiGameObject = {
+        "game": {
+            "cell": {
+                "index": boxNum,
+                "value": "x"
+              },
+              "over": true
+          
+            }
+        }
       box.classList.add('ex')
       toggle = true
       changeTurn()
       winner()
+
+      authApi.updateGame(apiGameObject).then(()=>console.log("Patched successfully"))
   }
   
 }
@@ -100,6 +143,12 @@ function moveArray(){
   return moves
 
 }
+
+function stopGame(){
+    document.querySelectorAll(".box").forEach(element =>{
+        element.removeEventListener('click' , clickMove)
+    }) 
+}
 function winner(){
   let moves = moveArray();
   console.log(moveArray())
@@ -107,24 +156,30 @@ function winner(){
   if(moves[0] == "circle"){
       if(moves[1] == "circle" && moves[2] == "circle"){
           document.querySelector('#status').innerHTML = "O is the winner!! Clear the board to play again!" ;
+          stopGame()
       }
       else if(moves[3] == "circle" && moves[6] == "circle"){   
           document.querySelector('#status').innerHTML = "O is the winner!! Clear the board to play again!" ;
+          stopGame()
       }
       else if(moves[4]== "circle" && moves[8]== "circle"){
           //left to right diag DONE
           document.querySelector('#status').innerHTML = "O is the winner!! Clear the board to play again!" ;
+          stopGame()
       }
 
   }else if(moves[0] == "ex"){
       if(moves[1] == "ex" && moves[2] == "ex"){//first column DONE 
           document.querySelector('#status').innerHTML = "X is the winner!! Clear the board to play again!" ;
+          stopGame()
       }        
       else if(moves[3] == "ex" && moves[6] == "ex"){    
           document.querySelector('#status').innerHTML = "X is the winner!! Clear the board to play again!" ;
+          stopGame()
       }
       else if(moves[4]== "ex" && moves[8]== "ex"){
           document.querySelector('#status').innerHTML = "X is the winner!! Clear the board to play again!" ;
+          stopGame()
       }
 
   }
@@ -132,32 +187,42 @@ function winner(){
   if(moves[2]== "circle"){//third column  DONE 
       if(moves[5] == "circle" && moves[8] == "circle" ){
           document.querySelector('#status').innerHTML = "O is the winner!! Clear the board to play again!" ;
+          stopGame()
       }else if(moves[4] == "circle" && moves[6] == "circle"){//right to left diag DONE \
           document.querySelector('#status').innerHTML = "O is the winner!! Clear the board to play again!" ;
+          stopGame()
       }
   }else if(moves[2]== "ex"){
       if(moves[5] == "ex" && moves[8] == "ex" ){
           document.querySelector('#status').innerHTML = "X is the winner!! Clear the board to play again!" ;
+          stopGame()
       }else if(moves[4] == "ex" && moves[6] == "ex"){//right to left diag DONE 
           document.querySelector('#status').innerHTML = "X is the winner!! Clear the board to play again!" ;
+          stopGame()
       }
   }
   if(moves[3]== "circle" && moves[4]== "circle" && moves[5]== "circle"){//second row 
       document.querySelector('#status').innerHTML = "O is the winner!! Clear the board to play again!" ;
+      stopGame()
   }else if(moves[3]== "ex" && moves[4]== "ex" && moves[5]== "ex"){//second row DONE
       document.querySelector('#status').innerHTML = "X is the winner!! Clear the board to play again!" ;
+      stopGame()
   }
 
   if(moves[6]== "circle" && moves[7]== "circle" && moves[8]== "circle"){//third row DONE
       document.querySelector('#status').innerHTML = "O is the winner!! Clear the board to play again!" ;
+      stopGame()
   }else if(moves[6]== "ex" && moves[7]== "ex" && moves[8]== "ex"){//third row 
       document.querySelector('#status').innerHTML = "X is the winner!! Clear the board to play again!" ;
+      stopGame()
   }
 
   if(moves[1]== "circle" && moves[4]== "circle" && moves[7]== "circle"){//second column
       document.querySelector('#status').innerHTML = "O is the winner!! Clear the board to play again!" ;
+      stopGame()
   } else if(moves[1]== "ex" && moves[4]== "ex" && moves[7]== "ex"){//second column
       document.querySelector('#status').innerHTML = "X is the winner!! Clear the board to play again!" ;
+      stopGame()
   }
 
   //if there is a tie

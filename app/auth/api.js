@@ -22,6 +22,31 @@ const signIn = function (data){
     })
 }
 
+const makeGame = function (cells){
+    return $.ajax({
+        method: "POST",
+        url: config.apiUrl +'/games',
+        cells, //: data,
+        headers: {
+            Authorization: 'Bearer ' + store.user.token
+        }
+        
+    })
+}
+
+const updateGame = function (data){
+    console.log(store.user)
+    return $.ajax({
+        method: "PATCH",
+        url: config.apiUrl +'/games/' + store.game._id,
+        data, //: data,
+        headers: {
+            Authorization: 'Bearer ' + store.user.token
+        }
+        
+    })
+}
+
 const signOut = function (){
     //console.log('loggedout!')
     return $.ajax({
@@ -41,6 +66,8 @@ const signOut = function (){
 module.exports = {
     signUp, //onSignUp :onSignUp
     signIn,
-    signOut
+    signOut,
+    makeGame,
+    updateGame
     
 }

@@ -30,12 +30,24 @@ const onSignIn = function(event){
     const data = getFormFields(form)
     console.log(data)
 
-    //api call 
+    //api call data in this case is the user info 
     authApi.signIn(data)
     .then((response)=>{
         authUi.onSignInSuccess(response);
+
+        //here need to create the new game 
+
+        //need to send in the user token 
+        //const token = response.user.token 
+        //console.log(token)
+        const emptyBoard= '{}'
+        authApi.makeGame(emptyBoard)
+        .then( (response)=>{authUi.onCreateGameSuccess(response)})
     })
     .catch(authUi.onSignInFailure())
+
+    
+
 }
 
 const onSignOut = function(){
