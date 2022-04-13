@@ -1,0 +1,42 @@
+@import '~bootstrap/scss/bootstrap';
+
+
+.box{
+    border: 2px solid black;
+    width: 100px;
+    height: 100px;
+}
+.grid{
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    width: 330px;
+}
+
+.circle{
+    background-image: url("./app/styles/o.png") ; 
+    background-size: 100%;
+}
+.ex{
+    background-image: url("./app/styles/x.png") ; 
+    background-size: 100%;
+}
+
+#sign-up-form{
+    width: 30%;
+    height: 200px;
+    min-width: 200px;
+    border: 2px solid black;
+    margin-bottom: 30px;
+}
+#sign-in-form{
+    width: 30%;
+    min-width: 200px;
+    height: 150px;
+    border: 2px solid black;
+    margin-bottom: 30px;
+}
+
+input {
+    border: 10px
+}
