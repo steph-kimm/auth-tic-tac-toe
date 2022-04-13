@@ -10,7 +10,7 @@ You can see the deployed game [here](https://steph-kimm.github.io/auth-tic-tac-t
 This game was used as practice with user authentication. 
 To play I drew a simple wireframe which can be seen below.
 
-![wireframe pic](./app/styles/Screen Shot 2022-04-13 at 10.58.10 AM.png)
+![wireframe pic](./app/styles/wireframe.png)
 
 # Authentication features 
 
